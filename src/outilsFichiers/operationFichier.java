@@ -1949,7 +1949,12 @@ public class operationFichier
 
         }
 		
-		 //Lecture 1 octet
+		 /**
+		  * Ecriture d'un bloc de taille <b>INT</b>
+		  * @param fichierALire Le path fu fichier <b>String</b>
+		  * @param position Position du curseur <b>long</b>
+		  * @param dataWrite Donnée à inscrire <b>int</b>
+		  */
         public void ecriture1(String fichierALire,long position,int dataWrite)
         {
             byte []reconstructionByte=new byte[1];

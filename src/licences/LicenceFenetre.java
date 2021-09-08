@@ -27,6 +27,7 @@ import javax.swing.border.EmptyBorder;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.file.Files;
 import java.awt.Desktop;
 
 import java.awt.Dialog.ModalExclusionType;
@@ -45,10 +46,12 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.io.IOException;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.Window.Type;
+import outilsFichiers.operationFichier;
 
 /**
  * Fenêtre qui affiche l'avis de licence.
@@ -68,11 +71,22 @@ public class LicenceFenetre extends JFrame {
 	private Label lblCopyright_global;
 	private Label lblCopyright_global2;
 	private Label lblCopyright_global3;
+	private operationFichier of_global=new operationFichier();
 	
 	private Label lblLienGit_global; //Servira de lien hyper texte.
 	private JFrame fenetreParente_global=new JFrame();
+	private final String cheminFichierLicence_global="/home/"+System.getProperty("user.name")+"/.config/JokernLicence";
+	
+	/**
+	 * Constructeur vide volontairement.
+	 */
+	public LicenceFenetre() {
+		
+	}
+	
 	/**
 	 * Creation de la fenêtre
+	 * @param fenetreAppelante de type <b>JFrame</b>, car la fenêtre affichée, cache l'appelante et la rend visible à la fermeture.
 	 */
 	public LicenceFenetre(JFrame fenetreAppelante) {
 		fenetreParente_global = fenetreAppelante;
@@ -185,6 +199,26 @@ public class LicenceFenetre extends JFrame {
 		fenetreParente_global.setVisible(true);
 		fenetreLicence_global.setVisible(false);
 		fenetreLicence_global.dispose();
+	}
+	
+	/**
+	 * @return Un booléen qui indique si la licence a été vue.
+	 */
+	public boolean licenceLue() {
+		boolean retourLicence=false;
+		
+		System.out.println(cheminFichierLicence_global);
+		
+		if(of_global.fichierExiste(cheminFichierLicence_global)) {
+			retourLicence=true;
+		}
+		
+		else {
+			of_global.ecriture1(cheminFichierLicence_global, 0,1);
+		}
+		
+		return retourLicence;
+		
 	}
 	
 

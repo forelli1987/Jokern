@@ -220,6 +220,13 @@ public class GuiMain{
 		frmJokern_global.setJMenuBar(this.barreMenu_global);
 
 		frmJokern_global.setVisible(true);
+		
+		if(!new LicenceFenetre().licenceLue()) {
+			new LicenceFenetre(frmJokern_global);
+		}
+		
+		
+		
 	}
 	
 	private void ouvrirFichier() {

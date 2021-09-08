@@ -186,5 +186,6 @@ public class LicenceFenetre extends JFrame {
 		fenetreLicence_global.setVisible(false);
 		fenetreLicence_global.dispose();
 	}
+	
 
 }

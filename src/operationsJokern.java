@@ -491,7 +491,6 @@ public class operationsJokern extends cryptographieFazy{
 		
 	}
 	
-	//TODO finir la traduction
 	/**
 	 * Méthode servant à la création d'un fichier crypté.
 	 */
@@ -515,7 +514,6 @@ public class operationsJokern extends cryptographieFazy{
 	 * Méthode servant à la création d'un fichier crypté.
 	 */
 	public void newFichier(String pathFichier,String motDePasse,List <dataJokern > listeChamps) {
-		//TODO Vérifier la bonne utilité de cette méthode.		
 		this.ecrireListeFichier(pathFichier,this.genCleMDP(motDePasse),listeChamps);
 				
 	}
@@ -524,7 +522,6 @@ public class operationsJokern extends cryptographieFazy{
 	 * Méthode servant à la création d'un fichier crypté.
 	 */
 	public void newFichier(String pathFichier,SecretKey cleSecrete,List <dataJokern > listeChamps) {
-		//TODO Vérifier la bonne utilité de cette méthode.		
 		this.ecrireListeFichier(pathFichier,cleSecrete,listeChamps);
 				
 	}

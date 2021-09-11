@@ -21,9 +21,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,6 +75,7 @@ import licences.LicenceFenetre;
 
 * */
 public class GuiMain{
+	private final String pathManuel_global="https://github.com/forelli1987/Jokern/raw/main/manuel.pdf"; //Chemin pour récupérer le manuel.
 	private FichierGui fichierSelection_global;
 	private cryptographieFazy CF=new cryptographieFazy();
 	private operationsJokern OJ=new operationsJokern(); //Possède des méthodes pour gérer facilement l'ouverture, la sauvegarde et la création des fichiers cryptés.
@@ -111,6 +121,7 @@ public class GuiMain{
 	
 	//Gestion des fichiers
 	private FichierGui FG=new FichierGui();
+	private JMenuItem mntmAide;
 	
 	public GuiMain() {		
 
@@ -403,12 +414,7 @@ public class GuiMain{
 			}
 		});
 		mnManageChamps_global.add(mntmRmChamp);
-		
-		//Aide
-		JMenu mnAide = new JMenu(langueApp_global.gMain_txtMnAide_global[langueApp_global.getLocale()]);
-		mnAide.setEnabled(false);
-		menuBar_global.add(mnAide);
-		
+				
 		//A propos
 		JMenu mnAbout = new JMenu(langueApp_global.gMain_txtMnAPropos_global[langueApp_global.getLocale()]);
 		menuBar_global.add(mnAbout);
@@ -423,6 +429,14 @@ public class GuiMain{
 			}
 		});
 		mnAbout.add(mntmLicence);
+		
+		mntmAide = new JMenuItem(langueApp_global.gMain_txtMnAide_global[langueApp_global.getLocale()]);
+		mntmAide.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				telechargerNotice();
+			}
+		});
+		mnAbout.add(mntmAide);
 		
 		return menuBar_global;
 		
@@ -494,5 +508,27 @@ public class GuiMain{
 		btnModifySave_global.setEnabled(menuActivation);
 		frmJokern_global.setTitle(fichierOuverture_global);
 
+	}
+	
+	
+	private void telechargerNotice() {
+		String sauvegardeNotice="";
+		sauvegardeNotice=fichierSelection_global.saveFichierDirectory()+"/JokernManual.pdf";
+		
+		if(!sauvegardeNotice.equals("-2")) {
+			URL url;
+			try {
+				url = new URL(pathManuel_global);
+				InputStream in = url.openStream();
+	            Files.copy(in, Paths.get(sauvegardeNotice));
+	            JOptionPane.showMessageDialog(null, langueApp_global.gMain_confirmTel[langueApp_global.getLocale()]+"\n"+sauvegardeNotice);
+			} 
+			catch (MalformedURLException e) {}
+			catch (IOException e) {}
+
+		}
+		
+		
+		
 	}
 }

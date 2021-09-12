@@ -66,6 +66,7 @@ import java.awt.Dimension;
 import texteOnApp.StrGuiMain;
 import javax.swing.ScrollPaneConstants;
 import licences.LicenceFenetre;
+import java.awt.Toolkit;
 
 /**
 *
@@ -128,6 +129,7 @@ public class GuiMain{
 		fichierSelection_global=new FichierGui();
 		
 		frmJokern_global = new JFrame();
+		frmJokern_global.setIconImage(Toolkit.getDefaultToolkit().getImage(GuiMain.class.getResource("/licences/jokern_icon.png")));
 		frmJokern_global.setResizable(false);
 		frmJokern_global.setTitle(langueApp_global.gMain_titreFenetreMain_global);
 		frmJokern_global.setBounds(100, 100, 357, 414);

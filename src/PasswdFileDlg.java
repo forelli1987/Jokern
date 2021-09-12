@@ -32,6 +32,7 @@ import java.awt.event.WindowEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import texteOnApp.StrPasswdFileDlg;
+import java.awt.Toolkit;
 
 /**
  * Prompt pour saisir le mot de passe de cryptage ou décryptage.
@@ -52,6 +53,7 @@ public class PasswdFileDlg extends JDialog {
 	 */
 	public PasswdFileDlg() {
 		JDialog FenDlg = new JDialog();
+		FenDlg.setIconImage(Toolkit.getDefaultToolkit().getImage(PasswdFileDlg.class.getResource("/licences/jokern_icon.png")));
 
 		FenDlg.setResizable(false);
 		FenDlg.setTitle(titreFenetre_global);

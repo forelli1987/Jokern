@@ -52,6 +52,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.Window.Type;
 import outilsFichiers.operationFichier;
+import java.awt.Toolkit;
 
 /**
  * Fenêtre qui affiche l'avis de licence.
@@ -81,6 +82,7 @@ public class LicenceFenetre extends JFrame {
 	 * Constructeur vide volontairement.
 	 */
 	public LicenceFenetre() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(LicenceFenetre.class.getResource("/licences/jokern_icon.png")));
 		
 	}
 	

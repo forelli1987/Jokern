@@ -27,6 +27,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import texteOnApp.StrPassOccDlg;
+import java.awt.Toolkit;
 
 /**
  * Prompt pour saisir le mot de passe de cryptage ou décryptage.
@@ -62,6 +63,7 @@ public class PasswdOccDlg extends JDialog {
 		coupleExtrait_global=champMdp.toString().split(";");
 		
 		JDialog passwdOccDial=new JDialog();
+		passwdOccDial.setIconImage(Toolkit.getDefaultToolkit().getImage(PasswdOccDlg.class.getResource("/licences/jokern_icon.png")));
 		passwdOccDial.setModal(true);
 		passwdOccDial.setResizable(false);
 		passwdOccDial.setBounds(100, 100, 340, 179);

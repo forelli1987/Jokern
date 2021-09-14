@@ -34,10 +34,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
 import texteOnApp.StrCreateFieldDlg;
+import java.awt.Toolkit;
 
 /**
  *  Boîte de dialogue pour la création d'un champ
- * @version v0.1.0
+ * @version v0.1.1
  * @author Anthony Fernandez
  */
 public class CreateFieldDlg extends JDialog {
@@ -59,6 +60,7 @@ public class CreateFieldDlg extends JDialog {
 	 */
 	
 	public CreateFieldDlg(String titre) {
+		fenetre_global.setIconImage(Toolkit.getDefaultToolkit().getImage(CreateFieldDlg.class.getResource("/licences/jokern_icon.png")));
 		fenetre_global.setModal(true); //Fenêtre au premier plan qui domine le reste.
 		fenetre_global.setResizable(false);
 		

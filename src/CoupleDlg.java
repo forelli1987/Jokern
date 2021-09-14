@@ -41,10 +41,11 @@ import java.awt.ComponentOrientation;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import texteOnApp.StrCoupleDlg;
+import java.awt.Toolkit;
 
 /**
  *  Boîte de dialogue pour la création/modification des champs de login/mot de passe.
- * @version v0.1.0
+ * @version v0.1.1
  * @author Anthony Fernandez
  */
 public class CoupleDlg extends JDialog {
@@ -81,6 +82,7 @@ public class CoupleDlg extends JDialog {
 		donneesChamp_global=LC; //Initialisation de la variable globale.
 		
 		fenetrePrincipale_global=new JDialog();
+		fenetrePrincipale_global.setIconImage(Toolkit.getDefaultToolkit().getImage(CoupleDlg.class.getResource("/licences/jokern_icon.png")));
 		fenetrePrincipale_global.setResizable(false);
 		fenetrePrincipale_global.setTitle(donneesChamp_global.getTitle());
 		fenetrePrincipale_global.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);

@@ -24,7 +24,7 @@ import java.util.Locale;
 /**
  * Classe contenant toutes les chaînes de caractères du programme.
  * @author Anthony Fernandez
- * @version v0.1.0
+ * @version v0.1.1
  */
 public class StrGuiMain extends StrManage {
 	
@@ -56,6 +56,7 @@ public class StrGuiMain extends StrManage {
 	public final String gMain_txtMnItmSupChamp_global[]= {"Supprimer un champ","Remove a field"};
 	public final String gMain_errPasDeDonnees[]= {"Aucune donnée à enregistrer","No data for record"};
 	public final String gMain_errOuverture_global[]= {"Impossible d\'ouvrir le fichier.","Sorry, Jokern can't open de file."};
+	public final String gMain_confirmTel[]= {"Fichier téléchargé sur","File downloaded on"};
 
 
 }

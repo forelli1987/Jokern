@@ -22,7 +22,7 @@ import java.io.Serializable;
 /**
  * Type de donnée qui permet de stocker un <b>login</b> et un <b>mot de passe</b>
  * @author Anthony Fernandez
- * @version v0.1.0
+ * @version v0.1.1
  *
  */
 

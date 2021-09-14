@@ -22,7 +22,7 @@ package texteOnApp;
 /**
  * Boîte à outil permettant la gestion des "locales".
  * @author Anthony Fernandez
- * @version v0.1.0
+ * @version v0.1.1
  */
 public class StrManage {
 	

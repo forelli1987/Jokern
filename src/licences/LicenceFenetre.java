@@ -52,11 +52,12 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.Window.Type;
 import outilsFichiers.operationFichier;
+import java.awt.Toolkit;
 
 /**
  * Fenêtre qui affiche l'avis de licence.
  * @author Anthony Fernandez
- * @version v0.1.0
+ * @version v0.1.1
  */
 public class LicenceFenetre extends JFrame {
 
@@ -75,12 +76,14 @@ public class LicenceFenetre extends JFrame {
 	
 	private Label lblLienGit_global; //Servira de lien hyper texte.
 	private JFrame fenetreParente_global=new JFrame();
-	private final String cheminFichierLicence_global="/home/"+System.getProperty("user.name")+"/.config/JokernLicence";
+	private final String cheminFichierLicenceGnuLinux_global="/home/"+System.getProperty("user.name")+"/.config/JokernLicence";
+	private final String cheminFichierLicenceWindows_global=System.getenv("AppData")+"\\JokernLicence";
 	
 	/**
 	 * Constructeur vide volontairement.
 	 */
 	public LicenceFenetre() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(LicenceFenetre.class.getResource("/licences/jokern_icon.png")));
 		
 	}
 	
@@ -206,15 +209,24 @@ public class LicenceFenetre extends JFrame {
 	 */
 	public boolean licenceLue() {
 		boolean retourLicence=false;
+		String cheminFichier;
+			
+		//Détection de l'OS se fait par la longueur de la chaîne, les os de type Gnu Linux s'appelle Linux tout simplement.
+		if(System.getProperty("os.name").length()>5){
+			cheminFichier=cheminFichierLicenceWindows_global;
+		}
 		
-		System.out.println(cheminFichierLicence_global);
+		else {
+			cheminFichier=cheminFichierLicenceGnuLinux_global;
+		}
 		
-		if(of_global.fichierExiste(cheminFichierLicence_global)) {
+		
+		if(of_global.fichierExiste(cheminFichier)) {
 			retourLicence=true;
 		}
 		
 		else {
-			of_global.ecriture1(cheminFichierLicence_global, 0,1);
+			of_global.ecriture1(cheminFichier, 0,1);
 		}
 		
 		return retourLicence;

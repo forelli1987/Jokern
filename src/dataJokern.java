@@ -23,7 +23,7 @@ import java.util.*;
 /**
  *
  * Classe exclusivement utilisée pour les données d'un champ.<br><br>
- * @version v0.1.0
+ * @version v0.1.1
  * @author Anthony Fernandez
 
  * */

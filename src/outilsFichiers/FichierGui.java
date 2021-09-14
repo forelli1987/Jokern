@@ -27,7 +27,7 @@ import java.io.IOException;
 /**
  * Boîte à outil, pour manipuler les fichiers avec une GUI.
  * @author Anthony Fernandez
- * @version v0.1.0
+ * @version v0.1.1
  *
  */
 public class FichierGui {

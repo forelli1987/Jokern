@@ -37,7 +37,7 @@ import java.awt.Toolkit;
 /**
  * Prompt pour saisir le mot de passe de cryptage ou décryptage.
  * @author Anthony Fernandez
- * @version v0.1.0
+ * @version v0.1.1
  */
 public class PasswdFileDlg extends JDialog {
 

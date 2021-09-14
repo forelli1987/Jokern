@@ -71,7 +71,7 @@ import java.awt.Toolkit;
 /**
 *
 * Classe pour la gestion de la GUI<br><br>
-* @version v0.1.0
+* @version v0.1.1
 * @author Anthony Fernandez
 
 * */

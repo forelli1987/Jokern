@@ -18,17 +18,6 @@
  * */
 
 package outilsFichiers;
-//Objet contenant diverses méthodes pour manipuler les fichiers binaires.
-//Permet également la manipulation des volumes notamment la lecture et la modification du MBR.
-//Dernière modification 15/04/2019
-
-
-//Gestion boîte de dialogue
-
-//La fenêtre de base
-
-//Gestion des fichiers
-
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -48,7 +37,7 @@ import java.util.*;
 /** 
  * Boîte à outil pour faciliter la manipulation des fichiers.
  * @author Anthony Fernandez 
- * @version v0.1.0
+ * @version v0.1.1
  * */
 public class operationFichier
 {

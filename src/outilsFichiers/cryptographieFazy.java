@@ -63,7 +63,7 @@ import java.security.spec.KeySpec;
  * <i>OU</i><br><br>
  * {@code cF.cryptAES("/home/nullos/Bureau/cheval.txt","decrypt");}<br><br>
  * Si ça ne fonctionne pas une erreur de type <b>BadPaddingException</b> est retournée, matérialisée ici par l'erreur F de cryptAES.<br><br>*  
- * @version v0.1.0
+ * @version v0.1.1
  * @author Anthony Fernandez
 
  * */

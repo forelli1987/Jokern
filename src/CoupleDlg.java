@@ -45,7 +45,7 @@ import java.awt.Toolkit;
 
 /**
  *  Boîte de dialogue pour la création/modification des champs de login/mot de passe.
- * @version v0.1.1
+ * @version v0.2.0
  * @author Anthony Fernandez
  */
 public class CoupleDlg extends JDialog {

@@ -24,7 +24,7 @@ import java.util.Locale;
 /**
  * Classe contenant toutes les chaînes de caractères du programme.
  * @author Anthony Fernandez
- * @version v0.1.1
+ * @version v0.2.0
  */
 public class StrGuiMain extends StrManage {
 	
@@ -46,6 +46,11 @@ public class StrGuiMain extends StrManage {
 	public final String gMain_txtBtnViewPass_global[]= {"Voir les couples","Get password(s)"};
 	
 	public final String gMain_txtMnFichier_global[]= {"Fichier","File"};
+	public final String gMain_txtMnCryptage_global[]= {"Cryptage de fichier","File encryption"};
+	public final String gMain_txtMnItmCryptFichier_global[]= {"Crypter un fichier","Encrypt a file"};
+	public final String gMain_txtMnItmDecryptFichier_global[]= {"Décrypter un fichier","Decrypt a file"};
+	public final String gMain_txtMnItmDeepSupr_global[]= {"Suppression de bas niveau","Low level deletion"};
+	
 	public final String gMain_txtMnItmOuvrir_global[]= {"Ouvrir","Open"};
 	public final String gMain_txtMnAide_global[]={"Aide","Help"};
 	public final String gMain_txtMnAPropos_global[]= {"À propos","About"};

@@ -24,7 +24,7 @@ import java.util.Locale;
 /**
  * Classe contenant toutes les chaînes de caractères du programme.
  * @author Anthony Fernandez
- * @version v0.1.1
+ * @version v0.2.0
  */
 public class StrLicences extends StrManage {
 	

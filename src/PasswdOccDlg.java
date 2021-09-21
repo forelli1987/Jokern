@@ -32,7 +32,7 @@ import java.awt.Toolkit;
 /**
  * Prompt pour saisir le mot de passe de cryptage ou décryptage.
  * @author Anthony Fernandez
- * @version v0.1.1
+ * @version v0.2.0
  */
 
 public class PasswdOccDlg extends JDialog {

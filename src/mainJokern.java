@@ -25,7 +25,7 @@ import licences.LicenceFenetre;
 /**
  * Execution principale du programme.
  * @author Anthony Fernandez
- * @version v0.1.1
+ * @version v0.2.0
  *
  */
 public class mainJokern {

@@ -17,22 +17,30 @@
  * 
  * */
 
-import java.security.NoSuchAlgorithmException;
-import java.util.*;
-import texteOnApp.StrGuiMain;
-import licences.LicenceFenetre;
+package threadFonction;
+
+import javax.swing.JOptionPane;
+
+import outilsFichiers.operationFichier;
+import texteOnApp.StrDeepSuppr;
 
 /**
- * Execution principale du programme.
- * @author Anthony Fernandez
+ * Suppression profonde
  * @version v0.2.0
- *
+ * @author Anthony Fernandez
  */
-public class mainJokern {
+public class DeepSupprThread extends Thread{
+	private operationFichier OF=new operationFichier();	
+	private String fichierAsupprimer_global;
+	private StrDeepSuppr langueDspr;
 	
-	public static void main(String args[]) {
-		new GuiMain();
-		
+	public DeepSupprThread(String fichierSuppr) {
+		fichierAsupprimer_global=fichierSuppr;
 	}
 	
+	//TODO finir le codage de cette méthode.
+	public void run() {
+		OF.suppressionProfonde(fichierAsupprimer_global);
+		JOptionPane.showMessageDialog(null,langueDspr.DpSpr_message[langueDspr.getLocale()] ,langueDspr.DpSpr_message[langueDspr.getLocale()], JOptionPane.INFORMATION_MESSAGE); 	
+	}
 }

@@ -49,11 +49,15 @@ import javax.swing.ListSelectionModel;
 
 import outilsFichiers.cryptographieFazy;
 import outilsFichiers.FichierGui;
+
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.plaf.OptionPaneUI;
 import javax.swing.JTextArea;
 import javax.swing.JEditorPane;
 import javax.swing.JButton;
+import javax.swing.JDialog;
+
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.JScrollBar;
@@ -64,9 +68,13 @@ import java.awt.Desktop;
 import java.awt.Dimension;
 
 import texteOnApp.StrGuiMain;
+
 import javax.swing.ScrollPaneConstants;
 import licences.LicenceFenetre;
+import threadFonction.DeepSupprThread;
+
 import java.awt.Toolkit;
+
 
 /**
 *
@@ -117,6 +125,7 @@ public class GuiMain{
 	
 	private JScrollPane scrollPane_global;
 	private JFrame frmJokern_global;
+	private final long tpsMs_global=500;
 
 	
 	//*** Langue et texte de l'application ***
@@ -460,8 +469,19 @@ public class GuiMain{
 		//Cryptage de fichier -> Crypter un fichier
 		mntmCryptageFichier_global=new JMenuItem(langueApp_global.gMain_txtMnItmCryptFichier_global[langueApp_global.getLocale()]);
 		
+		mntmCryptageFichier_global.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//TODO Coder le cryptage d'un fichier .
+			}
+		});
+		
 		//Cryptage de fichier -> Décrypter un fichier
 		mntmDeCryptageFichier_global=new JMenuItem(langueApp_global.gMain_txtMnItmDecryptFichier_global[langueApp_global.getLocale()]);
+		mntmDeCryptageFichier_global.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//TODO Coder le décryptage d'un fichier (sélection multiple possible ?).
+			}
+		});	
 		
 		mnCryptage_global.add(mntmCryptageFichier_global);
 		mnCryptage_global.add(mntmDeCryptageFichier_global);
@@ -469,7 +489,17 @@ public class GuiMain{
 		
 		//Fichier -> Suppression de bas niveau
 		mntmDeepSuppression_global=new JMenuItem(langueApp_global.gMain_txtMnItmDeepSupr_global[langueApp_global.getLocale()]);
+		mntmDeepSuppression_global.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				deepSuppr();
+			}
+		});
 		fichierMenu_global.add(mntmDeepSuppression_global);
+		fichierMenu_global.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//TODO Coder la suppression profonde (à ajouter dans OperationFichier.java).
+			}
+		});	
 
 		
 		mnAbout_global.add(mntmAide_global);
@@ -546,7 +576,9 @@ public class GuiMain{
 
 	}
 	
-	
+	/**
+	 * Téléchargement sur github, du manuel.
+	 */
 	private void telechargerNotice() {
 		String sauvegardeNotice="";
 		sauvegardeNotice=fichierSelection_global.saveFichierDirectory()+"/JokernManual.pdf";
@@ -562,9 +594,26 @@ public class GuiMain{
 			catch (MalformedURLException e) {}
 			catch (IOException e) {}
 
-		}
+		}		
+	}
+	
+	/**
+	 * Méthode pour la suppression bas niveau d'un fichier.<br>
+	 * <ol>
+	 * <li>Ecriture a aléatoire dans tout le fichier.</li>
+	 * <li>Suppression naturel après le <i>souillage</i> du fichier.</li>
+	 * </ol>
+	 *
+	 */
+	private void deepSuppr(){
+		String fichierAsupprimer=fichierSelection_global.openFichier();
 		
-		
+		if(!fichierAsupprimer.equals("-2")) {
+			DeepSupprThread DG = new DeepSupprThread(fichierAsupprimer);
+			DG.start();
+		}		
 		
 	}
+	
+
 }

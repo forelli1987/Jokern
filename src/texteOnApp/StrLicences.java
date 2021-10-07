@@ -63,7 +63,7 @@ public class StrLicences extends StrManage {
 	public final String licUtil_btnVoirCdeSrc[]= {"Récupérer le code source","Get source code"};
 	public final String licUtil_lblCpRgt[]={"Copyright 2021 Anthony Fernandez <forelli87@gmail.com>","GPL-3.0-or-later"};
 	public final String licUtil_lblVersion[]= {"Version : ","Version : "};
-	public final String licUtil_versionNumero= "v0.1.1";
+	public final String licUtil_versionNumero= "v0.2";
 	
 	public final String licUtil_lblLienGithub[]= {"Dépôt GITHUB","GITHUB repository"};
 

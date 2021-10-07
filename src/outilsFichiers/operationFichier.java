@@ -30,9 +30,12 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.*;
+
+import javax.swing.JProgressBar;
 
 /** 
  * Boîte à outil pour faciliter la manipulation des fichiers.
@@ -285,8 +288,7 @@ public class operationFichier
 	 * @param pathFichier : chemin + nom du fichier qui sera créé
 	 * @param uniteTaille : Choix entre : o,k,m,g pour octet, kilo, mega, giga.
 	 * */
-	public void remplAleatoire(String pathFichier,int tailleFichier,char uniteTaille)
-	{
+	public void remplAleatoire(String pathFichier,int tailleFichier,char uniteTaille){
 		//Initialisation des variables
 		long adresseFichier=0;
 		long tailleBloc=0;
@@ -310,8 +312,7 @@ public class operationFichier
 		/*System.out.println("Nbr octets : "+adresseFichier);
 		System.out.println("Taille bloc : "+tailleBloc);*/
 
-		try
-		{
+		try{
 			//Ajouter
 			//Si le fichier existe, le supprimer pour recommencer à 0.
 
@@ -319,11 +320,9 @@ public class operationFichier
 
 			//Tableau aleatoire
 
-			while(j<nbrIteration)
-			{
+			while(j<nbrIteration){
 				//Création d'un tableau aleatoire de 'tailleBloc'
-				for(i=0;i<tailleBloc;i++)
-				{
+				for(i=0;i<tailleBloc;i++){
 					donneesInjection[(int)i]=(byte)(Math.random()*256);
 				}
 
@@ -335,13 +334,149 @@ public class operationFichier
 			fos.close();
 		}
 
-		catch (FileNotFoundException erFile)
-		{
+		catch (FileNotFoundException erFile){
 			erFile.printStackTrace();
 		}
 
-		catch (IOException erFile)
-		{
+		catch (IOException erFile){
+			erFile.printStackTrace();
+		}
+
+	}
+	
+	/**
+	 * Surcharge de la méthode remplAleatoire, permet de remplir un fichier avec des octets aléatoires.
+	 * @param pathFichier de type <b>string</b>, pour indiquer où se trouve le fichier à <i>souiller</i>
+	 */
+	public void remplAleatoire(String pathFichier){
+		//Initialisation des variables
+		long tailleDuFichier=0;
+		long tailleBloc=0;
+
+		int j=0;
+		long i=0;
+
+		//Nombre de cycle d'écriture calculé.
+		long nbrIteration=0;
+
+		//On calcule la taille en octet désirée. En utilisant la fonction calcOctet.
+		tailleDuFichier=this.tailleFichier(pathFichier);
+
+		//Calculer la taille des blocs
+		tailleBloc=calcBloc(tailleDuFichier);
+		nbrIteration=tailleDuFichier/tailleBloc;
+		
+		//Si nbrIteration vaut 0, alors nbrIteration prend la taille du fichier (qui sera petite)
+		if(nbrIteration==0) {
+			nbrIteration=1;
+		}
+
+		byte donneesInjection[]=new byte[(int)tailleBloc];
+
+		try{
+			//Ajouter
+			//Si le fichier existe, le supprimer pour recommencer à 0.
+
+			RandomAccessFile fos = new RandomAccessFile(pathFichier,"rw");
+
+			//Tableau aleatoire
+
+			while(j<nbrIteration){
+				//Création d'un tableau aleatoire de 'tailleBloc'
+				
+				for(i=0;i<tailleBloc;i++){
+					donneesInjection[(int)i]=(byte)(Math.random()*256);
+				}
+
+				//Injection du bloc dans le fichier.
+				fos.write(donneesInjection);
+				j++;
+			}
+
+			fos.close();
+		}
+
+		catch (FileNotFoundException erFile){
+			erFile.printStackTrace();
+		}
+
+		catch (IOException erFile){
+			erFile.printStackTrace();
+		}
+
+	}
+	
+	public void suppressionProfonde(String fichier) {
+		remplAleatoire(fichier);
+		
+		try {
+			Path path = Paths.get(fichier);
+			Files.deleteIfExists(path);
+		}
+		
+		catch(IOException E) {}
+	}
+	
+	public void remplAleatoire(String pathFichier, JProgressBar fenetreProgression){
+		//Initialisation des variables
+		long tailleDuFichier=0;
+		long tailleBloc=0;
+
+		long j=0;
+		long i=0;
+
+		//Nombre de cycle d'écriture calculé.
+		long nbrIteration=0;
+
+		//On calcule la taille en octet désirée. En utilisant la fonction calcOctet.
+		tailleDuFichier=this.tailleFichier(pathFichier);
+
+		//Calculer la taille des blocs
+		tailleBloc=calcBloc(tailleDuFichier);
+		nbrIteration=tailleDuFichier/tailleBloc;
+		
+		//Si nbrIteration vaut 0, alors nbrIteration prend la taille du fichier (qui sera petite)
+		if(nbrIteration==0) {
+			nbrIteration=1;
+		}
+		
+		System.out.println("taille bloc :\t\t"+tailleBloc);
+		System.out.println("nombre itération :\t"+nbrIteration);
+		System.out.println("taille du fichier:\t"+tailleDuFichier);
+
+		byte donneesInjection[]=new byte[(int)tailleBloc];
+		
+
+		try{
+			//Ajouter
+			//Si le fichier existe, le supprimer pour recommencer à 0.
+
+			RandomAccessFile fos = new RandomAccessFile(pathFichier,"rw");
+
+			//Tableau aleatoire
+			fenetreProgression.setMaximum((int)nbrIteration);
+
+			while(j<nbrIteration){
+				//Création d'un tableau aleatoire de 'tailleBloc'
+				
+				for(i=0;i<tailleBloc;i++){
+					donneesInjection[(int)i]=(byte)(Math.random()*256);
+				}
+
+				//Injection du bloc dans le fichier.
+				fos.write(donneesInjection);
+				j++;
+				fenetreProgression.setValue((int)j);
+			}
+
+			fos.close();
+		}
+
+		catch (FileNotFoundException erFile){
+			erFile.printStackTrace();
+		}
+
+		catch (IOException erFile){
 			erFile.printStackTrace();
 		}
 
@@ -961,9 +1096,7 @@ public class operationFichier
 
 
 		//Début d'écriture.
-		System.out.println("Début d'écriture ...");
-		try
-		{
+		try{
 
 			RandomAccessFile fInjection=new RandomAccessFile(pathFichier,"rws");
 			tailleRecup=fInjection.length();
@@ -976,8 +1109,7 @@ public class operationFichier
 
 		//Initialisation d'un tableau
 			System.out.println("Initialisation du tableau d'octet");
-			for(i=0;i<(long)(tailleBloc);i++)
-			{
+			for(i=0;i<(long)(tailleBloc);i++){
 				ecriture[(int)(i)]=(byte)(0);
 			}
 
@@ -1614,8 +1746,7 @@ public class operationFichier
 	}
 
 	//Permet de calculer la taille du buffer en fonction d'une taille de fichier.
-	private int calcBloc(long taille)
-	{
+	private int calcBloc(long taille){
 		long tailleTab[]={2048L,104857600L,314572800L,4294967296L};
 		int tailleRetour=0;
 
@@ -1647,6 +1778,10 @@ public class operationFichier
 		{
 			tailleRetour=8388608;
 		}*/
+		
+		else {
+			tailleRetour=1;
+		}
 
 		return tailleRetour;
 
@@ -1965,6 +2100,27 @@ public class operationFichier
             catch (IOException erFile){}
             catch (NullPointerException erFile){}
             
+        }
+        
+        /**
+         * Méthode qui indique la taille d'un fichier dont la localisation est donnée en argument.
+         * @param pathFichier de type <b>string</b> qui indique le chemin du fichier à <i>mesurer</i>.
+         * @return un <b>long</b> qui représente la taille du fichier.
+         */
+        public long tailleFichier(String pathFichier) {
+        	long taille=-1;
+        	try {
+        		RandomAccessFile fTaille=new RandomAccessFile(pathFichier,"r");
+        		taille=fTaille.length();
+        		fTaille.close();
+        	}
+        	
+            catch (IOException erFile){}
+            catch (NullPointerException erFile){}
+        	
+        	finally {
+        		return taille;
+        	}
         }
 
 }

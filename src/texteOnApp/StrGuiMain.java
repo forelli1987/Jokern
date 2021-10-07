@@ -62,6 +62,8 @@ public class StrGuiMain extends StrManage {
 	public final String gMain_errPasDeDonnees[]= {"Aucune donnée à enregistrer","No data for record"};
 	public final String gMain_errOuverture_global[]= {"Impossible d\'ouvrir le fichier.","Sorry, Jokern can't open de file."};
 	public final String gMain_confirmTel[]= {"Fichier téléchargé sur","File downloaded on"};
+	public final String gMain_deepSuppr[]= {"Suppression en cours...","On deleting..."};
+
 
 
 }

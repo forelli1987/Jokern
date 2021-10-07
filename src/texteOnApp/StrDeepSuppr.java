@@ -17,22 +17,20 @@
  * 
  * */
 
-import java.security.NoSuchAlgorithmException;
-import java.util.*;
-import texteOnApp.StrGuiMain;
-import licences.LicenceFenetre;
+package texteOnApp;
+
+import java.util.Locale;
 
 /**
- * Execution principale du programme.
+ * Classe contenant toutes les chaînes de caractères du programme.
  * @author Anthony Fernandez
  * @version v0.2.0
- *
  */
-public class mainJokern {
+public class StrDeepSuppr extends StrManage {
 	
-	public static void main(String args[]) {
-		new GuiMain();
-		
-	}
-	
+	//langueDspr.DpSpr_message[langueDspr.getLocale()]
+
+	public final String DpSpr_titreDialog[]= {"Terminé","Done"};
+	public final String DpSpr_message[]= {"Fichier supprimé","File deleted"};
+
 }

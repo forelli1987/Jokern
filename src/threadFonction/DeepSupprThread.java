@@ -32,15 +32,14 @@ import texteOnApp.StrDeepSuppr;
 public class DeepSupprThread extends Thread{
 	private operationFichier OF=new operationFichier();	
 	private String fichierAsupprimer_global;
-	private StrDeepSuppr langueDspr;
+	private StrDeepSuppr langueDspr=new StrDeepSuppr();
 	
 	public DeepSupprThread(String fichierSuppr) {
 		fichierAsupprimer_global=fichierSuppr;
 	}
 	
-	//TODO finir le codage de cette méthode.
 	public void run() {
 		OF.suppressionProfonde(fichierAsupprimer_global);
-		JOptionPane.showMessageDialog(null,langueDspr.DpSpr_message[langueDspr.getLocale()] ,langueDspr.DpSpr_message[langueDspr.getLocale()], JOptionPane.INFORMATION_MESSAGE); 	
+		JOptionPane.showMessageDialog(null,langueDspr.DpSpr_titreDialog[langueDspr.getLocale()] ,langueDspr.DpSpr_message[langueDspr.getLocale()], JOptionPane.INFORMATION_MESSAGE); 	
 	}
 }

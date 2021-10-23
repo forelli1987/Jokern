@@ -27,6 +27,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.io.UnsupportedEncodingException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -47,6 +50,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
+import java.util.Arrays;
 
 /**
  *
@@ -232,6 +236,29 @@ public class cryptographieFazy extends operationFichier{
 	
 	public String getMdp() {
 		return this.motDePasse;
+	}
+	
+	
+	/**
+	 * Réecriture d'un fichier mais sans les derniers 4 octets pour supprimer la signature.<br>
+	 * Utilisé pour un décryptage.
+	 * @param chemin : Le path du fichier
+	 * @param donnees : Le tableau d'octet qui sera modifié
+	 */
+	public void ecritureFichierLessSignature(String chemin, byte donnees[]) {
+		byte donneeSansSign[]=Arrays.copyOf(donnees, (donnees.length-4));
+		
+		try {
+			//Suppression du fichier de base.
+			this.suppressionNormale(chemin);
+			
+			//L'option CREATE force la création du fichier s'il n'existe pas.
+			Files.write(Paths.get(chemin), donneeSansSign, StandardOpenOption.CREATE);
+		}
+		
+		catch (IOException e) {
+			System.out.println("Impossible d'écrire dans : "+chemin);
+		}
 	}
 		
 

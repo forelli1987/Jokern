@@ -63,6 +63,11 @@ public class StrGuiMain extends StrManage {
 	public final String gMain_errOuverture_global[]= {"Impossible d\'ouvrir le fichier.","Sorry, Jokern can't open de file."};
 	public final String gMain_confirmTel[]= {"Fichier téléchargé sur","File downloaded on"};
 	public final String gMain_deepSuppr[]= {"Suppression en cours...","On deleting..."};
+	public final String gMain_cryptSignature="CJ87";
+	public final String gMain_decryptErrorMissingSig[]= {"Fichier non décryté.\nLa signature de cryptage est absente.","Crypted signature is missing."};
+	public final String gMain_cryptDone[]= {"Le fichier est crypté.","Encryption is complete"};
+	public final String gMain_decryptDone[]= {"Le fichier est décrypté.","Decryption is complete"};
+
 
 
 

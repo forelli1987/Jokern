@@ -406,6 +406,15 @@ public class operationFichier
 
 	}
 	
+	public void suppressionNormale(String fichier) {
+		try {
+			Path path = Paths.get(fichier);
+			Files.deleteIfExists(path);
+		}
+		
+		catch(IOException E) {}
+	}
+	
 	public void suppressionProfonde(String fichier) {
 		remplAleatoire(fichier);
 		

@@ -471,7 +471,7 @@ public class GuiMain{
 		
 		mntmCryptageFichier_global.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//TODO Coder le cryptage d'un fichier .
+				cryptageFichierNormal('c');
 			}
 		});
 		
@@ -479,7 +479,7 @@ public class GuiMain{
 		mntmDeCryptageFichier_global=new JMenuItem(langueApp_global.gMain_txtMnItmDecryptFichier_global[langueApp_global.getLocale()]);
 		mntmDeCryptageFichier_global.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//TODO Coder le décryptage d'un fichier (sélection multiple possible ?).
+				cryptageFichierNormal('d');
 			}
 		});	
 		
@@ -497,7 +497,6 @@ public class GuiMain{
 		fichierMenu_global.add(mntmDeepSuppression_global);
 		fichierMenu_global.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//TODO Coder la suppression profonde (à ajouter dans OperationFichier.java).
 			}
 		});	
 
@@ -615,5 +614,55 @@ public class GuiMain{
 		
 	}
 	
+	//TODO ajouter des JOptionPane pour indiquer si le cryptage a fonctionné ou non.
+	private void cryptageFichierNormal(char choix) {
+		String fichier=FG.openFichier();
+		String mdp;
+		
+		//'c' pour cryptage
+		if(choix=='c') {
+			
+			//Si on annule l'import du fichier.
+			if(!fichier.equals("-2")) {
+				mdp=new PasswdFileDlg().getMdp();
+				CF.cryptAES(fichier, CF.genCleMDP(mdp), "crypt");
+				
+				CF.injectionAscii(fichier,langueApp_global.gMain_cryptSignature, CF.tailleFichier(fichier));
+				
+				JOptionPane.showMessageDialog(null, langueApp_global.gMain_cryptDone[langueApp_global.getLocale()]);
+			}
+		}
+		
+		//'d' pour décryptage
+		else if(choix=='d') {
+			
+			//Récupération de la signature en fin de fichier.
+			String sigLocale = CF.lectAscii(fichier, (CF.tailleFichier(fichier)-4L), 4);
+			
+			//Si on annule l'import du fichier et que la signature de cryptage est présente.
+			if(!fichier.equals("-2")) {
+				
+				if(sigLocale.equals(langueApp_global.gMain_cryptSignature)){
+					mdp=new PasswdFileDlg().getMdp();
+					
+					//Suppression des 4 derniers octets.
+					CF.ecritureFichierLessSignature(fichier, CF.lectureFichierComplete(fichier));
+					
+					//Décryptage
+					CF.cryptAES(fichier, CF.genCleMDP(mdp), "decrypt");
+					
+					JOptionPane.showMessageDialog(null, langueApp_global.gMain_decryptDone[langueApp_global.getLocale()]);
+				}
+				
+				else {
+					JOptionPane.showMessageDialog(null, langueApp_global.gMain_decryptErrorMissingSig[langueApp_global.getLocale()]);
+				}
+				
+			}
+		}
+		
+		mdp="0";
+		
+	}
 
 }

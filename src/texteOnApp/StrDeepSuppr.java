@@ -17,33 +17,20 @@
  * 
  * */
 
-import java.io.Serializable;
+package texteOnApp;
+
+import java.util.Locale;
 
 /**
- * Type de donnée qui permet de stocker un <b>login</b> et un <b>mot de passe</b>
+ * Classe contenant toutes les chaînes de caractères du programme.
  * @author Anthony Fernandez
  * @version v0.2.0
- *
  */
+public class StrDeepSuppr extends StrManage {
+	
+	//langueDspr.DpSpr_message[langueDspr.getLocale()]
 
-public class loginCouple implements Serializable{
-	
-	private String login;
-	private String motDePasse;
+	public final String DpSpr_titreDialog[]= {"Terminé","Done"};
+	public final String DpSpr_message[]= {"Fichier supprimé","File deleted"};
 
-	
-	/**
-	 * Constructeur principal
-	 * @param log Le login de type <b>String</b>
-	 * @param mdp Le mot de passe de type <b>String</b>
-	 */
-	public loginCouple(String log, String mdp) {
-		this.login=log;
-		this.motDePasse=mdp;
-	}
-	
-	
-	public String toString(){
-		return this.login+";"+this.motDePasse;
-	}
 }

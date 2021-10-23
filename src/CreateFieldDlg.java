@@ -38,7 +38,7 @@ import java.awt.Toolkit;
 
 /**
  *  Boîte de dialogue pour la création d'un champ
- * @version v0.1.1
+ * @version v0.2.0
  * @author Anthony Fernandez
  */
 public class CreateFieldDlg extends JDialog {

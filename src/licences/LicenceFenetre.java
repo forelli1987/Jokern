@@ -57,7 +57,7 @@ import java.awt.Toolkit;
 /**
  * Fenêtre qui affiche l'avis de licence.
  * @author Anthony Fernandez
- * @version v0.1.1
+ * @version v0.2.0
  */
 public class LicenceFenetre extends JFrame {
 

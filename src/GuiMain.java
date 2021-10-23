@@ -49,11 +49,15 @@ import javax.swing.ListSelectionModel;
 
 import outilsFichiers.cryptographieFazy;
 import outilsFichiers.FichierGui;
+
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.plaf.OptionPaneUI;
 import javax.swing.JTextArea;
 import javax.swing.JEditorPane;
 import javax.swing.JButton;
+import javax.swing.JDialog;
+
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.JScrollBar;
@@ -64,14 +68,18 @@ import java.awt.Desktop;
 import java.awt.Dimension;
 
 import texteOnApp.StrGuiMain;
+
 import javax.swing.ScrollPaneConstants;
 import licences.LicenceFenetre;
+import threadFonction.DeepSupprThread;
+
 import java.awt.Toolkit;
+
 
 /**
 *
 * Classe pour la gestion de la GUI<br><br>
-* @version v0.1.1
+* @version v0.2.0
 * @author Anthony Fernandez
 
 * */
@@ -88,6 +96,20 @@ public class GuiMain{
 	private JMenuBar barreMenu_global;
 	private JMenuItem mntmSauvegarder_global;
 	private JMenuItem mntmFermer_global;
+	private JMenuItem mntmAide_global;
+	
+	private JMenuItem mntmRmChamp_global;
+	private JMenuItem mntmAddChamp_global;
+	private JMenuItem mntmLicence_global;
+	private JMenuItem mntmOuvrir_global;
+	private JMenu mnAbout_global;
+	private JMenu mnCryptage_global;
+	private JMenuItem mntmCryptageFichier_global;
+	private JMenuItem mntmDeCryptageFichier_global;
+	private JMenuItem mntmDeepSuppression_global;
+	
+	private JMenuItem mntmSauvegarderSous_global;
+	private JMenu fichierMenu_global;
 	
 	//champs liste
 	private JList<dataJokern> listChamp_global;
@@ -103,6 +125,7 @@ public class GuiMain{
 	
 	private JScrollPane scrollPane_global;
 	private JFrame frmJokern_global;
+	private final long tpsMs_global=500;
 
 	
 	//*** Langue et texte de l'application ***
@@ -122,7 +145,6 @@ public class GuiMain{
 	
 	//Gestion des fichiers
 	private FichierGui FG=new FichierGui();
-	private JMenuItem mntmAide;
 	
 	public GuiMain() {		
 
@@ -340,36 +362,36 @@ public class GuiMain{
 		menuBar_global = new JMenuBar();
 		
 		//Fichier
-		JMenu fichierMenu = new JMenu(langueApp_global.gMain_txtMnFichier_global[langueApp_global.getLocale()]);
-		menuBar_global.add(fichierMenu);
+		fichierMenu_global = new JMenu(langueApp_global.gMain_txtMnFichier_global[langueApp_global.getLocale()]);
+		menuBar_global.add(fichierMenu_global);
 		
 		//Fichier -> Ouvrir
-		JMenuItem mntmOuvrir = new JMenuItem(langueApp_global.gMain_txtMnItmOuvrir_global[langueApp_global.getLocale()]);
-		mntmOuvrir.addActionListener(new ActionListener() {
+		mntmOuvrir_global = new JMenuItem(langueApp_global.gMain_txtMnItmOuvrir_global[langueApp_global.getLocale()]);
+		mntmOuvrir_global.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ouvrirFichier();
 			}
 		});
-		fichierMenu.add(mntmOuvrir);
-		
+		fichierMenu_global.add(mntmOuvrir_global);
+				
 		//Fichier -> Sauvegarder
-		this.mntmSauvegarder_global = new JMenuItem(langueApp_global.gMain_txtMnItmSauv_global[langueApp_global.getLocale()]);
+		mntmSauvegarder_global = new JMenuItem(langueApp_global.gMain_txtMnItmSauv_global[langueApp_global.getLocale()]);
 		mntmSauvegarder_global.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				sauvegardeRapide();
 			}
 		});
-		this.mntmSauvegarder_global.setEnabled(false);
-		fichierMenu.add(this.mntmSauvegarder_global);
+		mntmSauvegarder_global.setEnabled(false);
+		fichierMenu_global.add(this.mntmSauvegarder_global);
 		
 		//Menu sauvegarder sous
-		JMenuItem mntmSauvegarderSous = new JMenuItem(langueApp_global.gMain_txtMnItmSauvSous_global[langueApp_global.getLocale()]);
-		mntmSauvegarderSous.addActionListener(new ActionListener() {
+		mntmSauvegarderSous_global = new JMenuItem(langueApp_global.gMain_txtMnItmSauvSous_global[langueApp_global.getLocale()]);
+		mntmSauvegarderSous_global.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				sauvegarderSous();
 			}
 		});
-		fichierMenu.add(mntmSauvegarderSous);
+		fichierMenu_global.add(mntmSauvegarderSous_global);
 		
 		mntmFermer_global = new JMenuItem(langueApp_global.gMain_txtMnItmFermer_global[langueApp_global.getLocale()]);
 		mntmFermer_global.addActionListener(new ActionListener() {
@@ -377,14 +399,14 @@ public class GuiMain{
 				closeFichier();
 			}
 		});
-		fichierMenu.add(mntmFermer_global);
+		fichierMenu_global.add(mntmFermer_global);
 				
 		mnManageChamps_global = new JMenu(langueApp_global.gMain_txtMnGestionChamp_global[langueApp_global.getLocale()]);
 		menuBar_global.add(mnManageChamps_global);
 		
 		//Menu ajouter un champ.
-		JMenuItem mntmAddChamp = new JMenuItem(langueApp_global.gMain_titreFenCreation_global[langueApp_global.getLocale()]);
-		mntmAddChamp.addActionListener(new ActionListener() {
+		mntmAddChamp_global = new JMenuItem(langueApp_global.gMain_titreFenCreation_global[langueApp_global.getLocale()]);
+		mntmAddChamp_global.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				String recupCreationChamp;
@@ -402,11 +424,11 @@ public class GuiMain{
 
 			}
 		});
-		mnManageChamps_global.add(mntmAddChamp);
+		mnManageChamps_global.add(mntmAddChamp_global);
 		
 		//Menu suppression d'un champ.
-		JMenuItem mntmRmChamp = new JMenuItem(langueApp_global.gMain_txtMnItmSupChamp_global[langueApp_global.getLocale()]);
-		mntmRmChamp.addActionListener(new ActionListener() {
+		mntmRmChamp_global = new JMenuItem(langueApp_global.gMain_txtMnItmSupChamp_global[langueApp_global.getLocale()]);
+		mntmRmChamp_global.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String question=langueApp_global.gMain_texteSuppression_global[langueApp_global.getLocale()][1]+"\""+donneesChamps_global.get(indexSelection_global).getTitle()+"\"";
 				if(JOptionPane.showConfirmDialog(null, question, langueApp_global.gMain_texteSuppression_global[langueApp_global.getLocale()][0],
@@ -415,30 +437,71 @@ public class GuiMain{
 				}
 			}
 		});
-		mnManageChamps_global.add(mntmRmChamp);
+		mnManageChamps_global.add(mntmRmChamp_global);
 				
 		//A propos
-		JMenu mnAbout = new JMenu(langueApp_global.gMain_txtMnAPropos_global[langueApp_global.getLocale()]);
-		menuBar_global.add(mnAbout);
+		mnAbout_global = new JMenu(langueApp_global.gMain_txtMnAPropos_global[langueApp_global.getLocale()]);
+		menuBar_global.add(mnAbout_global);
 				
 		//Menu licence
-		JMenuItem mntmLicence = new JMenuItem(langueApp_global.gMain_txtMnItmLicence_global[langueApp_global.getLocale()]);
-		mntmLicence.addActionListener(new ActionListener() {
+		mntmLicence_global = new JMenuItem(langueApp_global.gMain_txtMnItmLicence_global[langueApp_global.getLocale()]);
+		mntmLicence_global.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				frmJokern_global.setVisible(false); //Rend invisible la fenêtre GuiMain temporairement. Celle-ci est de nouveau visible à la fermeture de l'objet LicenceFenetre.
 				new LicenceFenetre(frmJokern_global);
 			}
 		});
-		mnAbout.add(mntmLicence);
+		mnAbout_global.add(mntmLicence_global);
 		
-		mntmAide = new JMenuItem(langueApp_global.gMain_txtMnAide_global[langueApp_global.getLocale()]);
-		mntmAide.addActionListener(new ActionListener() {
+		mntmAide_global = new JMenuItem(langueApp_global.gMain_txtMnAide_global[langueApp_global.getLocale()]);
+		mntmAide_global.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				telechargerNotice();
 			}
 		});
-		mnAbout.add(mntmAide);
+		
+		fichierMenu_global.addSeparator();
+		
+		//Fichier -> Cryptage de fichier
+		mnCryptage_global=new JMenu(langueApp_global.gMain_txtMnCryptage_global[langueApp_global.getLocale()]);
+		
+		//Cryptage de fichier -> Crypter un fichier
+		mntmCryptageFichier_global=new JMenuItem(langueApp_global.gMain_txtMnItmCryptFichier_global[langueApp_global.getLocale()]);
+		
+		mntmCryptageFichier_global.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cryptageFichierNormal('c');
+			}
+		});
+		
+		//Cryptage de fichier -> Décrypter un fichier
+		mntmDeCryptageFichier_global=new JMenuItem(langueApp_global.gMain_txtMnItmDecryptFichier_global[langueApp_global.getLocale()]);
+		mntmDeCryptageFichier_global.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cryptageFichierNormal('d');
+			}
+		});	
+		
+		mnCryptage_global.add(mntmCryptageFichier_global);
+		mnCryptage_global.add(mntmDeCryptageFichier_global);
+		fichierMenu_global.add(mnCryptage_global);
+		
+		//Fichier -> Suppression de bas niveau
+		mntmDeepSuppression_global=new JMenuItem(langueApp_global.gMain_txtMnItmDeepSupr_global[langueApp_global.getLocale()]);
+		mntmDeepSuppression_global.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				deepSuppr();
+			}
+		});
+		fichierMenu_global.add(mntmDeepSuppression_global);
+		fichierMenu_global.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});	
+
+		
+		mnAbout_global.add(mntmAide_global);
 		
 		return menuBar_global;
 		
@@ -512,7 +575,9 @@ public class GuiMain{
 
 	}
 	
-	
+	/**
+	 * Téléchargement sur github, du manuel.
+	 */
 	private void telechargerNotice() {
 		String sauvegardeNotice="";
 		sauvegardeNotice=fichierSelection_global.saveFichierDirectory()+"/JokernManual.pdf";
@@ -528,9 +593,76 @@ public class GuiMain{
 			catch (MalformedURLException e) {}
 			catch (IOException e) {}
 
-		}
+		}		
+	}
+	
+	/**
+	 * Méthode pour la suppression bas niveau d'un fichier.<br>
+	 * <ol>
+	 * <li>Ecriture a aléatoire dans tout le fichier.</li>
+	 * <li>Suppression naturel après le <i>souillage</i> du fichier.</li>
+	 * </ol>
+	 *
+	 */
+	private void deepSuppr(){
+		String fichierAsupprimer=fichierSelection_global.openFichier();
 		
-		
+		if(!fichierAsupprimer.equals("-2")) {
+			DeepSupprThread DG = new DeepSupprThread(fichierAsupprimer);
+			DG.start();
+		}		
 		
 	}
+	
+	//TODO ajouter des JOptionPane pour indiquer si le cryptage a fonctionné ou non.
+	private void cryptageFichierNormal(char choix) {
+		String fichier=FG.openFichier();
+		String mdp;
+		
+		//'c' pour cryptage
+		if(choix=='c') {
+			
+			//Si on annule l'import du fichier.
+			if(!fichier.equals("-2")) {
+				mdp=new PasswdFileDlg().getMdp();
+				CF.cryptAES(fichier, CF.genCleMDP(mdp), "crypt");
+				
+				CF.injectionAscii(fichier,langueApp_global.gMain_cryptSignature, CF.tailleFichier(fichier));
+				
+				JOptionPane.showMessageDialog(null, langueApp_global.gMain_cryptDone[langueApp_global.getLocale()]);
+			}
+		}
+		
+		//'d' pour décryptage
+		else if(choix=='d') {
+			
+			//Récupération de la signature en fin de fichier.
+			String sigLocale = CF.lectAscii(fichier, (CF.tailleFichier(fichier)-4L), 4);
+			
+			//Si on annule l'import du fichier et que la signature de cryptage est présente.
+			if(!fichier.equals("-2")) {
+				
+				if(sigLocale.equals(langueApp_global.gMain_cryptSignature)){
+					mdp=new PasswdFileDlg().getMdp();
+					
+					//Suppression des 4 derniers octets.
+					CF.ecritureFichierLessSignature(fichier, CF.lectureFichierComplete(fichier));
+					
+					//Décryptage
+					CF.cryptAES(fichier, CF.genCleMDP(mdp), "decrypt");
+					
+					JOptionPane.showMessageDialog(null, langueApp_global.gMain_decryptDone[langueApp_global.getLocale()]);
+				}
+				
+				else {
+					JOptionPane.showMessageDialog(null, langueApp_global.gMain_decryptErrorMissingSig[langueApp_global.getLocale()]);
+				}
+				
+			}
+		}
+		
+		mdp="0";
+		
+	}
+
 }

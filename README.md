@@ -2,7 +2,7 @@
 
 Petit utilitaire pour stocker ses mots de passe dans un fichier crypté (AES 256 BITS).
 
-__Version :__ *v0.1.0*
+__Version :__  *v0.2.0*
 
 ## Auteur
 
@@ -19,6 +19,3 @@ Voici le type de question auxquelles je pourrai répondre :
 - Ajouter une langue (*actuellement en Français et Anglais*).
 - Détection d'un bug.
 - Amélioration de la documentation (*ou également traduction*).
-
-
-

@@ -17,33 +17,29 @@
  * 
  * */
 
-import java.io.Serializable;
+package threadFonction;
+
+import javax.swing.JOptionPane;
+
+import outilsFichiers.operationFichier;
+import texteOnApp.StrDeepSuppr;
 
 /**
- * Type de donnée qui permet de stocker un <b>login</b> et un <b>mot de passe</b>
- * @author Anthony Fernandez
+ * Suppression profonde
  * @version v0.2.0
- *
+ * @author Anthony Fernandez
  */
-
-public class loginCouple implements Serializable{
+public class DeepSupprThread extends Thread{
+	private operationFichier OF=new operationFichier();	
+	private String fichierAsupprimer_global;
+	private StrDeepSuppr langueDspr=new StrDeepSuppr();
 	
-	private String login;
-	private String motDePasse;
-
-	
-	/**
-	 * Constructeur principal
-	 * @param log Le login de type <b>String</b>
-	 * @param mdp Le mot de passe de type <b>String</b>
-	 */
-	public loginCouple(String log, String mdp) {
-		this.login=log;
-		this.motDePasse=mdp;
+	public DeepSupprThread(String fichierSuppr) {
+		fichierAsupprimer_global=fichierSuppr;
 	}
 	
-	
-	public String toString(){
-		return this.login+";"+this.motDePasse;
+	public void run() {
+		OF.suppressionProfonde(fichierAsupprimer_global);
+		JOptionPane.showMessageDialog(null,langueDspr.DpSpr_titreDialog[langueDspr.getLocale()] ,langueDspr.DpSpr_message[langueDspr.getLocale()], JOptionPane.INFORMATION_MESSAGE); 	
 	}
 }

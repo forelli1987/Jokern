@@ -33,7 +33,7 @@ import texteOnApp.StrLdc;
 /**
  * Regroupe les opérations et les outils necessaires pour faire tourner Jokern.
  * @author Anthony Fernandez
- * @version v0.1.1
+ * @version v0.2.0
  */
 
 public class operationsJokern extends cryptographieFazy{
